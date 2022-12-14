@@ -1,0 +1,135 @@
+/* html, body {
+  background-color: black;
+  background: black;
+} */
+
+.bg {
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  background-size : cover;
+  /* text-align: center; */
+  animation: slide 1.5s ease-in-out;
+  background: no-repeat center;
+  background-size: cover;
+ }
+
+ @keyframes slide {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+ }
+.wrapper {
+  /* margin-top: 20px; */
+  position: relative;
+  display: flex;
+  padding-top: 50px;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 50px;
+  padding-top: 80px;
+  padding-left: 10%;
+  height: 100vh;
+}
+.title {
+  padding-top: 20px;
+  text-align: center;
+  position: absolute;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 200%;
+  font-weight: bolder;
+  width: 98%;
+}
+.posterWrap {
+  text-align: center;
+  position: relative;
+}
+.poster {
+  vertical-align: middle;
+  opacity: 80%;
+  width: 250px;
+  border-radius: 20px;
+  filter: drop-shadow(5px 5px 5px #000);
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+}
+.poster:hover, .poster:active {
+  transform: scaleX(-1);
+}
+/* @media(hover: hover) and (pointer: fine) {
+  .poster:hover, .poster:active{
+    transform: scaleX(-1);
+  }
+} */
+.textBox {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 100%;
+  font-weight: bold;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px;
+  animation: text 0.2s ease-in-out;
+}
+
+@keyframes text {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+
+.textBox hr {
+  border: none;
+  height: 1px;
+  width: 80%;
+  background-color: rgba(104, 98, 98, 0.9);
+}
+.voteScore {
+  margin-top: 45px;
+}
+.overviewWrap {
+  /* width: 200px; */
+  width: 300px;
+  right: 0px;
+  color: rgba(214, 214, 214, 0.9);
+  position: relative;
+  animation: slide 1.5s ease-in-out;
+}
+
+@keyframes slide {
+  from {
+    right: -100px;
+    opacity: 0.3;
+  }
+  to {
+    right: 0px;
+    opacity: 0.9;
+  }
+}
+.release {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: bold;
+}
+
+.overview {
+  width: 100%;
+}
+
+.overviewBox {
+  width: 260px;
+  height: auto;
+  background-color:rgba(72, 71, 69, 0.6);
+  padding: 10px;
+  border-radius: 5px;
+}

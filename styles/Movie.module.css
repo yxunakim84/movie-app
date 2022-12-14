@@ -1,0 +1,38 @@
+.wrapper {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.title {
+  font-weight:bold;
+  padding-bottom: 20px;
+}
+
+.poster {
+  width: 200px;
+  border-radius: 20px;
+  filter: drop-shadow(5px 5px 5px #000);
+  transition: transform 0.2s ease-in-out;
+}
+
+.poster:hover {
+  transform: translateY(-20px);
+}
+/* 
+.poster:hover {
+  transform: scaleX(-1);
+} */
+
+
+.clicked {
+  animation: slide 1.5s ease-in-out;
+}
+
+@keyframes slide {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
+}
