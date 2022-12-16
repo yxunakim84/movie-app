@@ -11,7 +11,7 @@ export default function Layout({ children } : { children: ReactNode }) {
       {/* <div className={styles.lightBtn}>
         <button onClick={() => {setLight(true)}} className={styles.bright}>light</button>|<button onClick={() => {setLight(false)}} className={styles.dark}>dark</button>
       </div> */}
-      <div>{children}</div>
+      <div className={styles.body}>{children}</div>
     </>
   )
 }

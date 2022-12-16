@@ -1,10 +1,5 @@
-/* html, body {
-  background-color: black;
-  background: black;
-} */
-
 .bg {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   align-items: center;
   background-size : cover;
@@ -14,6 +9,17 @@
   background-size: cover;
  }
 
+ .bg::before{
+  content: "";
+  opacity: 0.5;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #000;
+}
+
  @keyframes slide {
   from {
     opacity: 0%;
@@ -22,8 +28,13 @@
     opacity: 100%;
   }
  }
+
+ .titleAndPoster {
+  /* display: grid; */
+  padding-top: 25px;
+}
+
 .wrapper {
-  /* margin-top: 20px; */
   position: relative;
   display: flex;
   padding-top: 50px;
@@ -33,10 +44,11 @@
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 30px;
   padding-top: 80px;
   padding-left: 10%;
-  height: 100vh;
+  /* height: 100vh; */
+  /* height 100vh 지우니까 페이지 여백 문제 해결됨 */
 }
 .title {
   padding-top: 20px;
@@ -124,12 +136,4 @@
 
 .overview {
   width: 100%;
-}
-
-.overviewBox {
-  width: 260px;
-  height: auto;
-  background-color:rgba(72, 71, 69, 0.6);
-  padding: 10px;
-  border-radius: 5px;
 }

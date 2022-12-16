@@ -1,15 +1,15 @@
 .nav {
+  z-index: 10;
+  position: fixed;
   display: flex;
-  gap: 10px;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 10px;
   align-items: flex-start;
-  /* position: fixed; */
+  width: 100%;
+  background-image: linear-gradient(to bottom,rgba(0,0,0,0.7),rgba(0,0,0,0));
   padding-left: 20px;
-  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px; */
 }
 .img {
   max-width: 100px;
