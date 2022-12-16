@@ -7,6 +7,7 @@ import Seo from '../Components/Seo';
 import styles from '../styles/Home.module.css';
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
+
 // const API_KEY = "423cc5224bbd89593b1368578e4fc7fc";
 // interface MovieData {
 //   id: number;

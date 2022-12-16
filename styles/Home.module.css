@@ -1,12 +1,19 @@
 .movieWrapper {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  /* margin-top: 1.5rem; */
-  padding-top: 0.5rem;
-  /* padding-top: 1.5rem; */
-  justify-content:center;
+  flex-wrap: nowrap;
+  /* flex-wrap: wrap; */
+  padding-top: 2rem;
+  justify-content: flex-start;
+  overflow-x: auto;
+  /* -ms-overflow-style: none;
+  scrollbar-width: none; */
 }
+
+.movieWrapper::-webkit-scrollbar {
+  display: none; 
+}
+
 
 .movieImg {
   /* width: 175px; */
