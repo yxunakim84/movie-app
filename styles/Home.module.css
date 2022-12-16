@@ -1,33 +1,46 @@
-.movieWrapper {
+.popularMovieTitle {
+  color: rgb(255, 255, 255);
+  z-index: 10;
+  margin: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 0;
+  font-weight: 700;
+  font-family: Noto Sans KR,-apple-system,BlinkMacSystemFont,Roboto,Segoe UI,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+}
+
+.popularMovieBox {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1.5rem;
+}
+.popularMovieWrapper {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  padding-top: 1rem;
-  /* flex-wrap: wrap; */
-  justify-content: flex-start;
   overflow-x: auto;
-  /* -ms-overflow-style: none;
-  scrollbar-width: none; */
+  justify-content: flex-start;
+  padding-top: 0.5rem;
 }
 
-.movieWrapper::-webkit-scrollbar {
+.movieWrapper {
+  height: 100vh;
+  position: relative;
+}
+
+.popularMovieWrapper::-webkit-scrollbar {
   display: none; 
 }
 
-.movieImg:hover {
-  transform: translateX(200px, 0);
-}
 .movieImg {
-  /* width: 175px; */
   width: 8.5rem;
   object-fit:cover;
   height: auto;
   border-radius: 5px;
   filter: drop-shadow(5px 5px 5px #000);
   /* margin-bottom: 25px; */
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.25s ease-in-out;
 }
-.movie {
+.popularMovie {
   text-align: center;
   cursor: pointer;
   /* width: 200px; */
@@ -50,7 +63,7 @@
 }
 
 .movieImg:hover {
-  transform: scale(1.05) translateY(-10px);
+  transform: translateY(-10px);
 }
 
 	
@@ -59,11 +72,17 @@
   .movieImg {
     width: 5.5rem;
   }
-  .movie {
+  .popularMovie {
     width: 6rem;
   }
-  .movieWrapper {
+  .popularMovieBox {
     margin-top: 7.5rem;
+  }
+  .popularMovieTitle {
+    font-size: 0.5rem;
+  }
+  .popularMovieBox {
+    padding-left: 0.7rem;
   }
 } 
  
@@ -72,11 +91,17 @@
   .movieImg {
     width: 6rem;
   }
-  .movie {
+  .popularMovie {
     width: 7rem;
   }
-  .movieWrapper {
+  .popularMovieBox {
     margin-top: 6.5rem;
+  }
+  .popularMovieTitle {
+    font-size: 0.8rem;
+  }
+  .popularMovieBox {
+    padding-left: 1rem;
   }
 } 
  
@@ -85,11 +110,17 @@
   .movieImg {
     width: 7rem;
   }
-  .movie {
+  .popularMovie {
     width: 8rem;
   }
-  .movieWrapper {
+  .popularMovieBox {
     margin-top: 5rem;
+  }
+  .popularMovieTitle {
+    font-size: 0.9rem;
+  }
+  .popularMovieBox {
+    padding-left: 1.2rem;
   }
 } 
  
@@ -98,13 +129,30 @@
   .movieImg {
     width: 8.5rem;
   }
-  .movie {
+  .popularMovie {
     width: 9.5rem;
   }
-  .movieWrapper {
-    margin-top: 0;
+  .popularMovieBox {
+    margin-top: 3rem;
+  }
+  .popularMovieTitle {
+    font-size: 1rem;
+  }
+  .popularMovieBox {
+    padding-left: 1.5rem;
   }
 } 
+
+@media screen and (min-width: 900px) {
+  .popularMovieBox {
+    margin-top: 0;
+  }
+  .movieWrapper {
+    top: -3.5rem;
+  }
+}
+
+
 
 .lightBtn {
   background-color: beige;

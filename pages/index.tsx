@@ -57,7 +57,7 @@ export default function Home({ results } : { results: Results[] }) {
       setIndex((prev) => (prev === total ? 0 : prev + 1));
     }
   };
-  console.log(index);
+  
   const decreaseIndex = () => {
     if (results) {
       const total = 0;
@@ -142,6 +142,12 @@ export default function Home({ results } : { results: Results[] }) {
 
 
       <div className={styles.movieWrapper} style={light===true ? {backgroundColor: "white"} : {backgroundColor: "black"}}>
+      
+      <div className={styles.popularMovieBox}>   
+      
+      <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 인기있는 영화 Top 20 🎈</span>
+      <div className={styles.popularMovieWrapper}>
+      
         {results?.map((movie) => (
           // <div onClick={() => {onClick(movie.id, movie.title, movie.poster_path)}} className={styles.movie}>
           <div key={movie.id} onClick={() => {
@@ -157,7 +163,7 @@ export default function Home({ results } : { results: Results[] }) {
               movie.genre_ids,
               movie.backdrop_path,
               movie.original_language,
-            )}} className={styles.movie}>
+            )}} className={styles.popularMovie}>
               <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className={styles.movieImg}></img>
               <h4 className={styles.movieTitle} style={light === true ? {color: "black"} : {color: "white"}}>{movie.title}</h4>
             {/* <Link href={{
@@ -171,6 +177,8 @@ export default function Home({ results } : { results: Results[] }) {
             </Link> */}
           </div>
         ))}
+        </div>
+      </div>
       </div>
     </div>
   )
