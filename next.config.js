@@ -18,7 +18,7 @@ const nextConfig = {
       },
       {
         source: "/api/tvShows",
-        destination: `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`
+        destination: `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`
       },
     ]
   }

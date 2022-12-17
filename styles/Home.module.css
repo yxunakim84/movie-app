@@ -11,8 +11,13 @@
 
 .popularMovieBox {
   display: flex;
+  position: relative;
   flex-direction: column;
-  /* padding-left: 1.5rem; */
+}
+
+.popularShowBox {
+  display: flex;
+  flex-direction: column;
 }
 .popularMovieWrapper {
   display: flex;
@@ -25,7 +30,6 @@
 
 .movieWrapper {
   height: 100vh;
-  /* position: relative; */
 }
 
 .popularMovieWrapper::-webkit-scrollbar {
@@ -46,11 +50,10 @@
   cursor: pointer;
   /* width: 200px; */
   padding: 3px;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
 }
 .movieTitle {
   margin-top: 3px;
-  margin-bottom: 0px;
   /* width: 140px;
   height: 30px; */
   /* font-size: medium; */
@@ -155,9 +158,15 @@
 @media screen and (min-width: 900px) {
   .popularMovieBox {
     margin-top: 0;
+    top: -3.5rem;
+  }
+  .popularShowBox {
+    position: relative;
+    top: -3.5rem;
   }
   .movieWrapper {
-    top: -3.5rem;
+    /* position: relative;
+    top: -3.5rem; */
   }
 }
 
@@ -227,7 +236,7 @@
 
 .motionImgTitle {
   position: absolute;
-  top: 45%;
+  top: 55%;
   left: 10%;
   font-size: 240%;
   line-height: 2.5rem;

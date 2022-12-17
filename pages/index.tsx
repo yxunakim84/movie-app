@@ -7,7 +7,9 @@ import Seo from '../Components/Seo';
 import styles from '../styles/Home.module.css';
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
-
+import { useQuery } from "react-query";
+import { getPopularMovies, popularMovies } from '../src/Api';
+import axios from 'axios';
 // const API_KEY = "423cc5224bbd89593b1368578e4fc7fc";
 // interface MovieData {
 //   id: number;
@@ -37,7 +39,38 @@ interface Results {
   backdrop_path: string,
   original_language: string,
 }
-export default function Home({ results } : { results: Results[] }) {
+
+interface PopularMovies {
+  id: number,
+  title: string,
+  poster_path: string,
+  popularity: number,
+  release_date: string,
+  vote_average: number,
+  overview: string,
+  genre_ids: string,
+  backdrop_path: string,
+  original_language: string,
+}
+
+interface PopularShows {
+  id: number,
+  name: string,
+  poster_path: string,
+  overview: string,
+  popularity: number,
+  first_air_date: string,
+  vote_average: number,
+  backdrop_path: string,
+  original_language: string,
+  origin_country: string,
+  original_name: string,
+}
+
+
+// {results} : {results : Results[]}
+// export default function Home({results} : {results : Results[]}) {
+export default function Home({popularMovies, popularShows}: {popularMovies: PopularMovies[], popularShows: PopularShows[]}) {
   // const [movies, setMoives] = useState<MovieData[]>([]);
   // useEffect(() => {
   //   (async() => {
@@ -47,25 +80,27 @@ export default function Home({ results } : { results: Results[] }) {
   //   })();
   // }, []);
   // console.log('results:', results);
+  // console.log('!!!!!!!', popularMovies);
+  // console.log('???????', popularShows);
   const router = useRouter();
   const [light, setLight] = useState(true);
   
   const [index, setIndex] = useState(0);
   const increaseIndex = () => {
-    if (results) {
+    if (popularMovies) {
       const total = 10;
       setIndex((prev) => (prev === total ? 0 : prev + 1));
     }
   };
   
   const decreaseIndex = () => {
-    if (results) {
+    if (popularMovies) {
       const total = 0;
       setIndex((prev) => (prev === total ? 10 : prev - 1));
     }
   };
 
-  const onClick = (
+  const popularMovieFunc = (
       id : number, 
       title : string, 
       poster : string, 
@@ -94,6 +129,36 @@ export default function Home({ results } : { results: Results[] }) {
     );
   };
 
+  const popularShowFunc = (
+    id: number,
+    name: string,
+    poster: string,
+    overview: string,
+    popularity: number,
+    first_air_date: string,
+    vote_average: number,
+    backdrop_path: string,
+    lang: string,
+    origin_country: string,
+    original_name: string,
+  ) => {
+    router.push({
+      pathname: `/shows/${name}/${id}`,
+      query: {
+        poster: poster,
+        overview: overview,
+        popularity: popularity,
+        first_air_date: first_air_date,
+        vote_average: vote_average,
+        backdrop_path: backdrop_path,
+        lang: lang,
+        origin_country: origin_country,
+        original_name: original_name,
+      },
+    },
+    `/shows/${name}/${id}`
+    );
+  };
 
   return (
     <div>
@@ -116,18 +181,15 @@ export default function Home({ results } : { results: Results[] }) {
           transition={{ duration: 0.2 }}
           key={index}
         >
-          {results?.slice(index, index+1).map((movie) => (
+          {popularMovies?.slice(index, index+1).map((movie) => (
 
               <div className={styles.relative}>
                 <img onClick={()=>{decreaseIndex();}} className={styles.arrowL} src='/arrowL.svg'/>
                 <img onClick={()=>{increaseIndex();}} className={styles.arrowR} src='/arrowR.svg'/>
-                {/* <img className={styles.motionImg} src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}></img> */}
-                <motion.img
-                  // variants={rowVars}
+                  <motion.img
                   className={styles.motionImg}
                   key={movie.id}
                   initial="normal"
-                  // transition={{ type: "tween" }}
                   src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
                   >
                 </motion.img>
@@ -138,58 +200,95 @@ export default function Home({ results } : { results: Results[] }) {
           )}
         </motion.div>
       </AnimatePresence>
-      {/* </div> */}
 
 
       <div className={styles.movieWrapper} style={light===true ? {backgroundColor: "white"} : {backgroundColor: "black"}}>
-      
-      <div className={styles.popularMovieBox}>   
-      
-      <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 인기있는 영화 Top 20 🎈</span>
-      <div className={styles.popularMovieWrapper}>
-      
-        {results?.map((movie) => (
-          // <div onClick={() => {onClick(movie.id, movie.title, movie.poster_path)}} className={styles.movie}>
-          <div key={movie.id} onClick={() => {
-            onClick(
-              movie.id, 
-              // movie.title, 
-              movie.title, 
-              movie.poster_path,
-              movie.overview,
-              movie.popularity,
-              movie.release_date,
-              movie.vote_average,
-              movie.genre_ids,
-              movie.backdrop_path,
-              movie.original_language,
-            )}} className={styles.popularMovie}>
-              <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className={styles.movieImg}></img>
-              <h4 className={styles.movieTitle} style={light === true ? {color: "black"} : {color: "white"}}>{movie.title}</h4>
-            {/* <Link href={{
-              pathname: `/movies/${movie.title}/${movie.id}`,
-              query: {
-                title: movie.title,
-              },
-            }}
-            as={`/movies/${movie.title}/${movie.id}`}
-            >
-            </Link> */}
+        <div className={styles.popularMovieBox}>
+          <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 인기있는 영화 Top 20 🎈</span>
+          <div className={styles.popularMovieWrapper}>
+            {popularMovies?.map((movie) => (
+              <div key={movie.id} onClick={() => {
+                popularMovieFunc(
+                  movie.id, 
+                  movie.title, 
+                  movie.poster_path,
+                  movie.overview,
+                  movie.popularity,
+                  movie.release_date,
+                  movie.vote_average,
+                  movie.genre_ids,
+                  movie.backdrop_path,
+                  movie.original_language,
+                )}} className={styles.popularMovie}>
+                  <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className={styles.movieImg}></img>
+                  <h4 className={styles.movieTitle} style={light === true ? {color: "black"} : {color: "white"}}>{movie.title}</h4>
+                
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <div className={styles.popularShowBox}>
+          <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 인기있는 드라마 Top 20 🎈</span>
+          <div className={styles.popularMovieWrapper}>
+            {popularShows?.map((show) => (
+              <div key={show.id} onClick={() => {
+                popularShowFunc(
+                  show.id, 
+                  show.name, 
+                  show.poster_path,
+                  show.overview,
+                  show.popularity,
+                  show.first_air_date,
+                  show.vote_average,
+                  show.backdrop_path,
+                  show.original_language,
+                  show.origin_country,
+                  show.original_name,
+                )}} className={styles.popularMovie}>
+                  <img src={`https://image.tmdb.org/t/p/w500/${show.poster_path}`} className={styles.movieImg}></img>
+                  <h4 className={styles.movieTitle} style={light === true ? {color: "black"} : {color: "white"}}>{show.name}</h4>
+                
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      </div>
+
+
+
+
     </div>
   )
 }
 
+
+// export async function getServerSideProps() {
+//   const { results } = await (await (await fetch(`http://localhost:3000/api/movies`)).json())
+//   return {
+//     props: {
+//       results
+//     },
+//   }
+// }
+
 export async function getServerSideProps() {
-  const { results } = await (await (await fetch(`http://localhost:3000/api/movies`)).json())
-  console.log('json: ', results);
+  let [popularMoviesRes, popularShowsRes] = await Promise.all([
+    fetch(`http://localhost:3000/api/movies`),
+    fetch(`http://localhost:3000/api/tvShows`),
+  ]);
+  let [popularMovies, popularShows] = await Promise.all([
+    popularMoviesRes.json(),
+    popularShowsRes.json(),
+  ])
+  // console.log(popularMovies.results);
+  popularMovies = popularMovies.results;
+  popularShows = popularShows.results;
+  // return 부분에서 popularMovies.results 하면 안되고 여기서 처리해주면 results 만 지정 가능
   return {
     props: {
-      results
+      popularMovies,
+      popularShows
     },
   }
 }
