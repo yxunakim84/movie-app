@@ -1,5 +1,6 @@
 .main {
   position: relative;
+  height: 100vh;
 }
 .popularMovieTitle {
   color: rgb(255, 255, 255);
@@ -33,10 +34,6 @@
   overflow-x: auto;
   justify-content: flex-start;
   padding-top: 0.5rem;
-}
-
-.movieWrapper {
-  height: 100%;
 }
 
 .popularMovieWrapper::-webkit-scrollbar {

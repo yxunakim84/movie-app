@@ -67,10 +67,9 @@ interface PopularShows {
   original_name: string,
 }
 
-
 // {results} : {results : Results[]}
 // export default function Home({results} : {results : Results[]}) {
-export default function Home({popularMovies, popularShows}: {popularMovies: PopularMovies[], popularShows: PopularShows[]}) {
+export default function Home({popularMovies, popularShows, trendingMovies, trendingShows}: {popularMovies: PopularMovies[], popularShows: PopularShows[], trendingMovies: PopularMovies[], trendingShows: PopularShows[]}) {
   // const [movies, setMoives] = useState<MovieData[]>([]);
   // useEffect(() => {
   //   (async() => {
@@ -79,9 +78,6 @@ export default function Home({popularMovies, popularShows}: {popularMovies: Popu
   //     console.log(movies);
   //   })();
   // }, []);
-  // console.log('results:', results);
-  // console.log('!!!!!!!', popularMovies);
-  // console.log('???????', popularShows);
   const router = useRouter();
   const [light, setLight] = useState(true);
   
@@ -256,11 +252,62 @@ export default function Home({popularMovies, popularShows}: {popularMovies: Popu
             ))}
           </div>
         </div>
-      </div>
+      
+
+      <div className={styles.popularShowBox}>
+          <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 트렌드인 영화 Top 20 💥</span>
+          <div className={styles.popularMovieWrapper}>
+          {trendingMovies?.map((movie) => (
+              <div key={movie.id} onClick={() => {
+                popularMovieFunc(
+                  movie.id, 
+                  movie.title, 
+                  movie.poster_path,
+                  movie.overview,
+                  movie.popularity,
+                  movie.release_date,
+                  movie.vote_average,
+                  movie.genre_ids,
+                  movie.backdrop_path,
+                  movie.original_language,
+                )}} className={styles.popularMovie}>
+                  <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className={styles.movieImg}></img>
+                  <h4 className={styles.movieTitle} style={light === true ? {color: "black"} : {color: "white"}}>{movie.title}</h4>
+                
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.popularShowBox}>
+          <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 트렌드인 드라마 Top 20 💖</span>
+          <div className={styles.popularMovieWrapper}>
+            {trendingShows?.map((show) => (
+              <div key={show.id} onClick={() => {
+                popularShowFunc(
+                  show.id, 
+                  show.name, 
+                  show.poster_path,
+                  show.overview,
+                  show.popularity,
+                  show.first_air_date,
+                  show.vote_average,
+                  show.backdrop_path,
+                  show.original_language,
+                  show.origin_country,
+                  show.original_name,
+                )}} className={styles.popularMovie}>
+                  <img src={`https://image.tmdb.org/t/p/w500/${show.poster_path}`} className={styles.movieImg}></img>
+                  <h4 className={styles.movieTitle} style={light === true ? {color: "black"} : {color: "white"}}>{show.name}</h4>
+                
+              </div>
+            ))}
+          </div>
+        </div>
 
 
-
-
+      {/* 데이터 전체 wrapper */}
+      </div> 
     </div>
   )
 }
@@ -276,21 +323,31 @@ export default function Home({popularMovies, popularShows}: {popularMovies: Popu
 // }
 
 export async function getServerSideProps() {
-  let [popularMoviesRes, popularShowsRes] = await Promise.all([
+  let [popularMoviesRes, popularShowsRes, trendingMoviesRes, trendingShowsRes] = await Promise.all([
     fetch(`http://localhost:3000/api/movies`),
     fetch(`http://localhost:3000/api/tvShows`),
+    fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
+    fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
+    // fetch(`http://localhost:3000/api/trending/tv`),
   ]);
-  let [popularMovies, popularShows] = await Promise.all([
+  let [popularMovies, popularShows, trendingMovies, trendingShows] = await Promise.all([
     popularMoviesRes.json(),
     popularShowsRes.json(),
+    trendingMoviesRes.json(),
+    trendingShowsRes.json(),
   ])
   // console.log(popularMovies.results);
   popularMovies = popularMovies.results;
   popularShows = popularShows.results;
+  trendingMovies = trendingMovies.results;
+  trendingShows = trendingShows.results;
+  // console.log(trendingShows);
   return {
     props: {
       popularMovies,
-      popularShows
+      popularShows,
+      trendingMovies,
+      trendingShows,
     },
   }
 }
