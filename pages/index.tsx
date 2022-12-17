@@ -111,6 +111,7 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
     router.push({
       pathname: `/movies/${title}/${id}`,
       query: {
+        title: title,
         poster: poster,
         overview: overview,
         popularity: popularity,
@@ -141,6 +142,7 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
     router.push({
       pathname: `/shows/${name}/${id}`,
       query: {
+        name: name,
         poster: poster,
         overview: overview,
         popularity: popularity,
@@ -208,8 +210,8 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
             {popularMovies?.map((movie) => (
               <div key={movie.id} onClick={() => {
                 popularMovieFunc(
-                  movie.id, 
-                  movie.title, 
+                  movie.id,
+                  movie.title,
                   movie.poster_path,
                   movie.overview,
                   movie.popularity,
