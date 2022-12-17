@@ -161,8 +161,10 @@ export default function Home({popularMovies, popularShows}: {popularMovies: Popu
   };
 
   return (
-    <div>
+    <div className={styles.main}>
       <Seo title="Movies"/>
+      <div className={styles.bg}>
+
       <div className={styles.lightBtn}>
         <button onClick={() => {setLight(true)}} className={styles.bright}>light</button>|<button onClick={() => {setLight(false)}} className={styles.dark}>dark</button>
       </div>
@@ -180,10 +182,10 @@ export default function Home({popularMovies, popularShows}: {popularMovies: Popu
           exit={{ opacity: 0, x: 0 }}
           transition={{ duration: 0.2 }}
           key={index}
-        >
+          >
           {popularMovies?.slice(index, index+1).map((movie) => (
-
-              <div className={styles.relative}>
+            
+            <div key={movie.id} className={styles.relative}>
                 <img onClick={()=>{decreaseIndex();}} className={styles.arrowL} src='/arrowL.svg'/>
                 <img onClick={()=>{increaseIndex();}} className={styles.arrowR} src='/arrowR.svg'/>
                   <motion.img
@@ -196,11 +198,12 @@ export default function Home({popularMovies, popularShows}: {popularMovies: Popu
                 <div className={styles.motionImgTitle}>{movie.title}</div>
               </div>
               
-            )  
-          )}
+              )  
+              )}
         </motion.div>
       </AnimatePresence>
 
+      </div>
 
       <div className={styles.movieWrapper} style={light===true ? {backgroundColor: "white"} : {backgroundColor: "black"}}>
         <div className={styles.popularMovieBox}>
@@ -229,7 +232,7 @@ export default function Home({popularMovies, popularShows}: {popularMovies: Popu
         </div>
 
         <div className={styles.popularShowBox}>
-          <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 인기있는 드라마 Top 20 🎈</span>
+          <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 인기있는 드라마 Top 20 💫</span>
           <div className={styles.popularMovieWrapper}>
             {popularShows?.map((show) => (
               <div key={show.id} onClick={() => {
@@ -284,7 +287,6 @@ export async function getServerSideProps() {
   // console.log(popularMovies.results);
   popularMovies = popularMovies.results;
   popularShows = popularShows.results;
-  // return 부분에서 popularMovies.results 하면 안되고 여기서 처리해주면 results 만 지정 가능
   return {
     props: {
       popularMovies,
