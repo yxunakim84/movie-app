@@ -144,7 +144,7 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
       <div className={styles.lightBtn}>
         <button onClick={() => {setLight(true)}} className={styles.bright}>light</button>|<button onClick={() => {setLight(false)}} className={styles.dark}>dark</button>
       </div>
-
+{/* 
       <AnimatePresence exitBeforeEnter>
         <motion.div layout
           className={styles.bgList}
@@ -178,7 +178,7 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
               )}
         </motion.div>
       </AnimatePresence>
-
+ */}
       </div>
 
       <div className={styles.movieWrapper} style={light===true ? {backgroundColor: "white"} : {backgroundColor: "black"}}>
