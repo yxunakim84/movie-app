@@ -7,15 +7,6 @@ import Seo from '../Components/Seo';
 import styles from '../styles/Home.module.css';
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
-import { useQuery } from "react-query";
-import { getPopularMovies, popularMovies } from '../src/Api';
-import axios from 'axios';
-// const API_KEY = "423cc5224bbd89593b1368578e4fc7fc";
-// interface MovieData {
-//   id: number;
-//   title: string;
-//   poster_path: string;
-// }
 
 export const rowVars = {
   start: {
@@ -317,7 +308,6 @@ export async function getServerSideProps() {
     fetch(`http://localhost:3000/api/tvShows`),
     fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
     fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
-    // fetch(`http://localhost:3000/api/trending/tv`),
   ]);
   let [popularMovies, popularShows, trendingMovies, trendingShows] = await Promise.all([
     popularMoviesRes.json(),
