@@ -27,19 +27,6 @@ export const rowVars = {
   },
 };
 
-interface Results {
-  id: number,
-  title: string,
-  poster_path: string,
-  popularity: number,
-  release_date: string,
-  vote_average: number,
-  overview: string,
-  genre_ids: string,
-  backdrop_path: string,
-  original_language: string,
-}
-
 interface PopularMovies {
   id: number,
   title: string,

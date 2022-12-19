@@ -19,14 +19,14 @@ const nextConfig = {
         source: "/api/tvShows",
         destination: `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`
       },
-      {
-        source: "api/trending/movies",
-        destination: `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
-      },
-      {
-        source: "api/trending/tv",
-        destination: `https://api.themoviedb.org/3/trending/tv/day?api_key=${API_KEY}`
-      },
+      // {
+      //   source: "api/trending/movies",
+      //   destination: `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
+      // },
+      // {
+      //   source: "api/trending/tv",
+      //   destination: `https://api.themoviedb.org/3/trending/tv/day?api_key=${API_KEY}`
+      // },
     ]
   }
 }
