@@ -18,6 +18,18 @@ export const rowVars = {
   },
 };
 
+interface Results {
+  id: number,
+  title: string,
+  poster_path: string,
+  popularity: number,
+  release_date: string,
+  vote_average: number,
+  overview: string,
+  genre_ids: string,
+  backdrop_path: string,
+  original_language: string,
+}
 interface PopularMovies {
   id: number,
   title: string,
@@ -46,8 +58,8 @@ interface PopularShows {
 }
 
 // {results} : {results : Results[]}
-// export default function Home({results} : {results : Results[]}) {
-export default function Home({popularMovies, popularShows, trendingMovies, trendingShows}: {popularMovies: PopularMovies[], popularShows: PopularShows[], trendingMovies: PopularMovies[], trendingShows: PopularShows[]}) {
+export default function Home({results} : {results : Results[]}) {
+// export default function Home({popularMovies, popularShows, trendingMovies, trendingShows}: {popularMovies: PopularMovies[], popularShows: PopularShows[], trendingMovies: PopularMovies[], trendingShows: PopularShows[]}) {
   // const [movies, setMoives] = useState<MovieData[]>([]);
   // useEffect(() => {
   //   (async() => {
@@ -61,14 +73,14 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
   
   const [index, setIndex] = useState(0);
   const increaseIndex = () => {
-    if (popularMovies) {
+    if (results) {
       const total = 10;
       setIndex((prev) => (prev === total ? 0 : prev + 1));
     }
   };
   
   const decreaseIndex = () => {
-    if (popularMovies) {
+    if (results) {
       const total = 0;
       setIndex((prev) => (prev === total ? 10 : prev - 1));
     }
@@ -159,7 +171,7 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
           transition={{ duration: 0.2 }}
           key={index}
           >
-          {popularMovies?.slice(index, index+1).map((movie) => (
+          {results?.slice(index, index+1).map((movie) => (
             
             <div key={movie.id} className={styles.relative}>
                 <img onClick={()=>{decreaseIndex();}} className={styles.arrowL} src='/arrowL.svg'/>
@@ -185,7 +197,7 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
         <div className={styles.popularMovieBox}>
           <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 인기있는 영화 Top 20 🎈</span>
           <div className={styles.popularMovieWrapper}>
-            {popularMovies?.map((movie) => (
+            {results?.map((movie) => (
               <div key={movie.id} onClick={() => {
                 popularMovieFunc(
                   movie.id,
@@ -207,7 +219,7 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
           </div>
         </div>
 
-        <div className={styles.popularShowBox}>
+        {/* <div className={styles.popularShowBox}>
           <span className={styles.popularMovieTitle} style={light === true ? {color: "black"} : {color: "white"}}>현재 인기있는 드라마 Top 20 💫</span>
           <div className={styles.popularMovieWrapper}>
             {popularShows?.map((show) => (
@@ -283,7 +295,7 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
 
       {/* 데이터 전체 wrapper */}
@@ -293,40 +305,40 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
 }
 
 
-// export async function getServerSideProps() {
-//   const { results } = await (await (await fetch(`http://localhost:3000/api/movies`)).json())
-//   return {
-//     props: {
-//       results
-//     },
-//   }
-// }
-
 export async function getServerSideProps() {
-  let [popularMoviesRes, popularShowsRes, trendingMoviesRes, trendingShowsRes] = await Promise.all([
-    fetch(`http://localhost:3000/api/movies`),
-    fetch(`http://localhost:3000/api/tvShows`),
-    fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
-    fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
-  ]);
-  let [popularMovies, popularShows, trendingMovies, trendingShows] = await Promise.all([
-    popularMoviesRes.json(),
-    popularShowsRes.json(),
-    trendingMoviesRes.json(),
-    trendingShowsRes.json(),
-  ])
-  // console.log(popularMovies.results);
-  popularMovies = popularMovies.results;
-  popularShows = popularShows.results;
-  trendingMovies = trendingMovies.results;
-  trendingShows = trendingShows.results;
-  // console.log(trendingShows);
+  const { results } = await (await (await fetch(`http://localhost:3000/api/movies`)).json())
   return {
     props: {
-      popularMovies,
-      popularShows,
-      trendingMovies,
-      trendingShows,
+      results
     },
   }
 }
+
+// export async function getServerSideProps() {
+//   let [popularMoviesRes, popularShowsRes, trendingMoviesRes, trendingShowsRes] = await Promise.all([
+//     fetch(`http://localhost:3000/api/movies`),
+//     fetch(`http://localhost:3000/api/tvShows`),
+//     fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
+//     fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
+//   ]);
+//   let [popularMovies, popularShows, trendingMovies, trendingShows] = await Promise.all([
+//     popularMoviesRes.json(),
+//     popularShowsRes.json(),
+//     trendingMoviesRes.json(),
+//     trendingShowsRes.json(),
+//   ])
+//   // console.log(popularMovies.results);
+//   popularMovies = popularMovies.results;
+//   popularShows = popularShows.results;
+//   trendingMovies = trendingMovies.results;
+//   trendingShows = trendingShows.results;
+//   // console.log(trendingShows);
+//   return {
+//     props: {
+//       popularMovies,
+//       popularShows,
+//       trendingMovies,
+//       trendingShows,
+//     },
+//   }
+// }
