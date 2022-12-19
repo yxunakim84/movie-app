@@ -9,7 +9,7 @@ export default function Detail() {
   // const [title, id] = params || [];
   // console.log(title, id);
   // console.log('param: ', params, typeof(params));
-  console.log(router);
+  // console.log(router);
   const [click, setClick] = useState(false);
   const url = `https://image.tmdb.org/t/p/original${router.query.backdrop_path}`;
   const [mouseOver, letMouseOver] = useState(false);
