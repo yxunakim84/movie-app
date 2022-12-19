@@ -304,8 +304,8 @@ export default function Home({popularMovies, popularShows, trendingMovies, trend
 
 export async function getServerSideProps() {
   let [popularMoviesRes, popularShowsRes, trendingMoviesRes, trendingShowsRes] = await Promise.all([
-    fetch(`http://localhost:3000/api/movies`),
-    fetch(`http://localhost:3000/api/tvShows`),
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=423cc5224bbd89593b1368578e4fc7fc`),
+    fetch(`https://api.themoviedb.org/3/tv/popular?api_key=423cc5224bbd89593b1368578e4fc7fc`),
     fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
     fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=423cc5224bbd89593b1368578e4fc7fc'),
   ]);
